@@ -1,4 +1,5 @@
-title 'Firewall existence check'
+# encoding: utf-8
+# Author: root@localhost.network
 
 gcp_project_id = attribute('gcp_project_id')
 
