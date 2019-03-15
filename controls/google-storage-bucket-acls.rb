@@ -16,6 +16,30 @@ control 'gcs-public-bucket' do
   end
 end
 
+control 'gcs-allUsers-object' do
+  impact 1.0
+  title 'Check that the storage object does not have an ACL for allUsers.'
+  google_storage_buckets(project: gcp_project_id).bucket_names.each do |bucket_name|
+    google_storage_bucket_objects(bucket: bucket_name).object_names.each do |object_name|
+      describe google_storage_object_acl(bucket: bucket_name, object: object_name, entity: 'allUsers') do
+        it { should_not exist }
+      end
+    end
+  end
+end
+
+control 'gcs-allAuthenticatedUsers-object' do
+  impact 1.0
+  title 'Check that the storage object does not have an ACL for allAuthenticatedUsers.'
+  google_storage_buckets(project: gcp_project_id).bucket_names.each do |bucket_name|
+    google_storage_bucket_objects(bucket: bucket_name).object_names.each do |object_name|
+      describe google_storage_object_acl(bucket: bucket_name, object: object_name, entity: 'allAuthenticatedUsers') do
+        it { should_not exist }
+      end
+    end
+  end
+end
+
 control 'gcs-exist' do
   impact 0.1
   title 'Check that the test public storage bucket exists.'
