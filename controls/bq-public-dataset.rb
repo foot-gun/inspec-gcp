@@ -1,4 +1,5 @@
-title 'BigQuery public dataset test.'
+# encoding: utf-8
+# Author: root@localhost.network
 
 gcp_project_id = attribute('gcp_project_id')
 
