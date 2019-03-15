@@ -1,5 +1,5 @@
-
-title 'Public Bucket Check'
+# encoding: utf-8
+# Author: root@localhost.network
 
 gcp_project_id = attribute('gcp_project_id')
 
@@ -16,10 +16,9 @@ control 'gcs-public-bucket' do
   end
 end
 
-title 'Public Bucket Existence Check'
 control 'gcs-exist' do
   impact 0.1
-  title 'Check that the storage bucket exists.'
+  title 'Check that the test public storage bucket exists.'
   describe google_storage_buckets(project: gcp_project_id) do
     its('bucket_names'){ should include "ublicpay" }
   end
