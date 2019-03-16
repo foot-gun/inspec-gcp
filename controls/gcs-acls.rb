@@ -57,17 +57,9 @@ control 'gcs-allAuthenticatedUsers-default' do
   title 'Check that there is no default storage object ACL for allAuthenticatedUsers.'
   google_storage_buckets(project: gcp_project_id).bucket_names.each do |bucket_name|
     google_storage_bucket_objects(bucket: bucket_name).object_names.each do |object_name|
-      describe google_storage_default_object_acl(bucket: bucket_name,  entity: 'allUsers') do
+      describe google_storage_default_object_acl(bucket: bucket_name,  entity: 'allAuthenticatedUsers') do
         it { should_not exist }
       end
     end
-  end
-end
-
-control 'gcs-exist' do
-  impact 0.1
-  title 'Check that the test public storage bucket exists.'
-  describe google_storage_buckets(project: gcp_project_id) do
-    its('bucket_names'){ should include "ublicpay" }
   end
 end
